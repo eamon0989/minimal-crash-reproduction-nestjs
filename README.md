@@ -47,3 +47,15 @@ The app should crash with the same output as point 1 above.
 I have not been able to reproduce this issue using `curl` or `postman`. My guess as to why is that as they are higher level tools, they somehow ensure that the request is properly formatted. But as `nc` and `http:node` are lower level, they allow malformed requests to be sent.
 
 I originally ran into this issue when pen-testing our application. I think https://github.com/nestjs/nest/issues/9489 may be the same issue, but it was closed as it didn't include any way to reproduce the issue.
+
+## Possible fixes?
+
+By modifying line 44 in `node_modules/multer/lib/make-middleware.js` from `busboy.removeAllListeners()` to:
+
+```js
+process.nextTick(function () {
+  busboy.removeAllListeners()
+})
+```
+
+The malformed requests no longer crash the app. I took the fix from https://github.com/expressjs/multer/pull/1177, but that PR has been open for 9 months at the time of writing. There is an open issue in the `multer` repo referencing this problem: https://github.com/expressjs/multer/issues/1176.
