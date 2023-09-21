@@ -59,3 +59,11 @@ process.nextTick(function () {
 ```
 
 The malformed requests no longer crash the app. I took the fix from https://github.com/expressjs/multer/pull/1177, but that PR has been open for 9 months at the time of writing. There is an open issue in the `multer` repo referencing this problem: https://github.com/expressjs/multer/issues/1176.
+
+## Related issues
+
+https://github.com/nestjs/nest/issues/9489
+https://github.com/nestjs/nest/issues/12415
+https://github.com/nestjs/nest/issues/12415
+
+https://github.com/expressjs/multer/issues/1176
